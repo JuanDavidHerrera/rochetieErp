@@ -23,7 +23,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', auth_views.LoginView.as_view(template_name='core/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='core/login.html'), name='logout'),
+    re_path('core/', include('applications.core.urls')),
     re_path('dashboard/', include('applications.dashboard.urls')),
+    #re_path('inventario/', include('applications.inventory.urls')),
+    #re_path('compras/', include('applications.purchases.urls')),
+    #re_path('ventas/', include('applications.sales.urls')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

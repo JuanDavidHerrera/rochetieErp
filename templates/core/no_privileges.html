@@ -1,0 +1,43 @@
+{% extends 'bases/dash_base.html' %}
+
+
+{% block content %}
+<div class="col-12 col-lg-6">
+    <div class="card card-dark">
+        <div class="card-header">
+            <h3 class="card-title">Sin permisos para ingresar a esta vista</h3>
+            <div class="card-tools">
+                <!-- Buttons, labels, and many other things can be placed here! -->
+            </div>
+            <!-- /.card-tools -->
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+            <div class="mb-3">
+                <b class="text-info">Usuario: </b>{{ user.username }}
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <b>{{ user.first_name }}, no tienes suficientes privilegios para cargar la opción solicitada.</b>
+                    <br>
+                    <small>Para poder acceder debes iniciar sesión con un usuario que tenga los privilegios
+                        requeridos.</small>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+            <div class="col">
+                <a href="{% url 'Dashboard:home' %}" class="btn bg-gradient-info"><span class="fa fa-home"></span> Ir a
+                    inicio</a>
+                <a href="{% url 'login' %}" class="btn btn-success"><span class="fa fa-user"></span> Ingresar con otro
+                    usuario</a>
+            </div>
+        </div>
+        <!-- /.card-footer -->
+    </div>
+    <!-- /.card -->
+</div>
+{% endblock content %}
