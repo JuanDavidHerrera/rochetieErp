@@ -1,0 +1,97 @@
+{% extends 'bases/dash_base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="col-12">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">
+          <i class="fas fa-search"> </i>
+          {{ title }}
+        </h3>
+      <div class="card-tools">
+        <!-- Buttons, labels, and many other things can be placed here! -->
+      </div>
+      <!-- /.card-tools -->
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+          <table class="table table-hover">
+              <thead>
+                <tr>
+                  {% block columns %}
+              
+                  {% endblock columns %}
+                </tr>
+              </thead>
+              <tbody>
+                              
+                  {% block rows %}
+
+                  {% endblock rows %}
+                                                
+              </tbody>
+            </table> 
+      </div>
+      <!-- /.card-body -->
+      <div class="card-footer">
+          
+        {% block button %}
+          <a href=" {{ create_url }} " class="btn btn-primary btnTest">
+            <i class="fas fa-plus"></i> Nuevo registro    
+          </a> 
+        {% endblock button %}
+            
+      </div>
+      <!-- /.card-footer -->
+    </div>
+    <!-- /.card -->
+</div>
+ {% endblock content %}
+
+ 
+ {% block javascript %}
+    <script>
+        $(function () {
+        $(".table").DataTable({
+            "responsive": true, "lengthChange": true, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+            "language":{
+                  url : "{% static 'lib/adminlte-3.1.0/plugins/datatables/spanish.txt' %}"
+            }
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        });
+
+        $(document).ready(function(){
+          $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        function inactivar(url,id)
+        {
+          var data = {id:id};
+          data = JSON.stringify(data);
+          var token = '{{csrf_token}}';
+          $.ajax({
+            headers : {"X-CSRFToken": token},
+            type:"POST",
+            url: url + id,
+            data: data,
+            success: function(response){
+              if(response==="OK")
+              {
+                location.reload(true);
+              }
+              else{
+                mensaje("Error intentado cambiar el estado")
+              }
+            },
+            error: function (jqXHR, textStatus, errorThrow){
+              console.log(textStatus, errorThrow);
+              mensaje("Error!",errorThrow, 'error');
+              cerrar_modal();
+            }
+          });
+        }
+    </script>
+ {% endblock javascript %}
+     

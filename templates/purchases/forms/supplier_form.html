@@ -1,0 +1,27 @@
+{% extends 'bases/modal_base.html' %}
+
+
+{% block body_content %}
+    <form method="POST" role="form"
+    action="{% if object %} {% url 'Purchases:supplier_update' object.pk %} {% else %} {% url 'Purchases:supplier_create' %} {% endif %}">
+    {% csrf_token %}
+    <div class="card-body">
+
+        <input type="hidden" name="action" value=" {{ action }} ">
+
+        {{ form.as_p }}
+
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">
+
+        <button type="button" class="btn btn-warning" onclick="return cerrar_modal()"><i
+                class="fas fa-arrow-left"></i> Cancelar</button>
+        <button type="submit" class="btn btn-primary btnTest">
+            <i class="{% ifequal action 'add' %} fas fa-plus{% else %} fas fa-save{% endifequal %}"></i> {{nombre_boton}}
+        </button>
+
+    </div>
+    </form>
+{% endblock body_content %}
+    

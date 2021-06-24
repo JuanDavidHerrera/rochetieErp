@@ -26,7 +26,7 @@ urlpatterns = [
     re_path('core/', include('applications.core.urls')),
     re_path('dashboard/', include('applications.dashboard.urls')),
     #re_path('inventario/', include('applications.inventory.urls')),
-    #re_path('compras/', include('applications.purchases.urls')),
+    re_path('compras/', include('applications.purchases.urls')),
     #re_path('ventas/', include('applications.sales.urls')),
 ]
 

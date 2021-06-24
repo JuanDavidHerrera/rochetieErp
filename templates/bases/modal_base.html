@@ -1,0 +1,63 @@
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+        <div class="card card-outline {% ifequal action 'add' %} card-success {% else %} card-warning {% endifequal %}">
+
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="{% ifequal action 'add' %} fas fa-plus{% else %} fas fa-edit{% endifequal %}"></i>
+                    {{title}}
+                </h3>
+            </div>
+            <!-- /.card-header -->
+
+            
+            {% block body_content %}
+                
+            {% endblock body_content %}
+                
+            <!-- /.card -->
+        </div>
+    </div>
+</div>
+
+
+{% block scripts %}
+    
+{% endblock scripts %}
+    
+
+<script>
+
+    var url = $("form").attr("action");
+    var token = jQuery("[name=csrfmiddlewaretoken]").val()
+    $(function () {
+        $('form').submit(function (e) {
+            e.preventDefault();
+            var formData = $("form").serializeArray();
+            // mensaje("",formData);
+            $.ajax({
+                url: url,
+                method: "POST",
+                headers: { 'X-CSRFToken': token },
+                data: formData
+            })
+                .done(function (r, textStatus, xhr) {
+                    if (xhr.status == 200) {
+                        location.reload(true);
+                    }
+                    else {
+                        mensaje(textStatus);
+                    }
+                }).fail(function (error) {
+                    var error_responseText = error.responseText
+                    var msg = JSON.parse(error_responseText)
+                    for (var message in msg) {
+                        if (msg[message][0]) {
+                            mensaje("Error!", msg[message][0], "error");
+                        }
+                    }
+                });
+        });
+    });
+</script>

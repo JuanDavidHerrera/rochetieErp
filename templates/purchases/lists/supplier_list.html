@@ -1,0 +1,41 @@
+{% extends 'bases/list_base.html' %}
+
+
+{% block columns %}
+    <th>Nombre</th>
+    <th>Ciudad</th>
+    <th>Dirección</th>
+    <th>Teléfono</th>
+    <th>Correo</th>
+    <th>Observaciones</th>
+    <th>Opciones</th>
+{% endblock columns %}
+
+
+{% block rows %}
+    
+    {% for c in object_list %}
+        <tr>
+            <td> {{c.name}} </td>
+            <td> {{c.city}} </td>
+            <td> {{c.address}} </td>
+            <td> {{c.phone}} </td>
+            <td> {{c.email}} </td>
+            <td> {{c.observations}} </td>
+            <td>
+                <button class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="bottom" title="Editar" onclick="return abrir_modal('{% url 'Purchases:supplier_update' c.id %}')">
+                    <i class="fas fa-edit"></i>
+                </button>
+            </td>
+        </tr>
+    {% endfor %}
+        
+{% endblock rows %}
+
+{% block button %}
+    <button class="btn btn-primary btnTest" onclick="return abrir_modal('{% url 'Purchases:supplier_create' %}')">
+        <i class="fas fa-plus"></i> Nuevo registro    
+    </button> 
+{% endblock button %}
+    
+    
